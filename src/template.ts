@@ -1,3 +1,3 @@
-export function escapeCarpark(x: number[][]): string[] {
+export function escapeCarpark(carPark: number[][]): string[] {
   return [];
 }
