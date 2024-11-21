@@ -1,7 +1,9 @@
-import { templateFunction } from "../../src/template";
+import { escapeCarpark } from "../../src/template";
 
-describe("TemplateFunction should return half of the provided", () => {
-  it("2 -> 1 ", () => {
-    expect(templateFunction(2)).toEqual(1);
+describe("We need to escape the car park", () => {
+  it("The simplest would be a small car park where we are parked next to the exit", () => {
+    const carPark = [[2]];
+    const expectedRoute: string[] = [];
+    expect(escapeCarpark(carPark)).toEqual(expectedRoute);
   });
 });

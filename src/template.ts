@@ -1,5 +1,3 @@
-function templateFunction(x: number) {
-  return x / 2;
+export function escapeCarpark(x: number[][]): string[] {
+  return [];
 }
-
-export { templateFunction };
