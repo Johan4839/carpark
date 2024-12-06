@@ -11,9 +11,17 @@ describe("We need to escape the car park", () => {
     const expectedRoute: string[] = ["R1"];
     expect(escapeCarpark(carPark)).toEqual(expectedRoute);
   });
-  it("The car park is a bit bigger, but now we need to move three spaces to the right to exit", () => {
+  it("The car park is a bit bigger; now we need to move three spaces to the right to exit", () => {
     const carPark = [[2, 0, 0, 0]];
     const expectedRoute: string[] = ["R3"];
+    expect(escapeCarpark(carPark)).toEqual(expectedRoute);
+  });
+  it("Now we add a second floor so we first need to move down before going to the exit", () => {
+    const carPark = [
+      [2, 0, 1, 0],
+      [0, 0, 0, 0],
+    ];
+    const expectedRoute = ["R2", "D1", "R1"]
     expect(escapeCarpark(carPark)).toEqual(expectedRoute);
   });
 });
