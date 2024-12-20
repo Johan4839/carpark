@@ -1,3 +1,36 @@
+const car = 2;
+const stair = 1;
+const emptySpace = 0;
+type Cell = typeof car | typeof stair | typeof emptySpace;
+
+export class CarPark {
+  private carPark: Cell[][];
+
+  constructor(carPark: Cell[][]) {
+    this.carPark = carPark;
+  }
+
+  getCarPark() {
+    return this.carPark;
+  }
+
+  getTopFloor() {
+    return this.carPark[0];
+  }
+
+  getGroundFloor() {
+    return this.carPark[1];
+  }
+
+  getCarParkLevels() {
+    return this.carPark.length;
+  }
+
+  getCarParkWidth() {
+    return this.carPark[0].length - 1;
+  }
+}
+
 function calculateStepsRight(
   positionToGoTo: number,
   currentPosition: number,
@@ -9,18 +42,19 @@ function calculateStepsRight(
     route.push(`R${stepsRight}`);
   }
 }
-export function escapeCarpark(carPark: number[][]): string[] {
+export function escapeCarpark(carPark: CarPark): string[] {
   const route: string[] = [];
-  const groundFloorExitPosition = carPark[0].length - 1;
-  if (carPark.length === 1) {
-    const currentPosition = carPark[0].indexOf(2);
+  const groundFloorExitPosition = carPark.getCarParkWidth();
+  const carParkLevels = carPark.getCarParkLevels();
+  if (carParkLevels === 1) {
+    const currentPosition = carPark.getGroundFloor().indexOf(car);
     calculateStepsRight(groundFloorExitPosition, currentPosition, route);
   }
 
-  if (carPark.length === 2) {
-    const firstFloor = carPark[0];
-    const currentPosition = firstFloor.indexOf(2);
-    const stairCasePosition = firstFloor.indexOf(1);
+  if (carParkLevels === 2) {
+    const topFloor = carPark.getTopFloor();
+    const currentPosition = topFloor.indexOf(car);
+    const stairCasePosition = topFloor.indexOf(stair);
     calculateStepsRight(stairCasePosition, currentPosition, route);
 
     route.push("D1");
