@@ -19,7 +19,7 @@ export class CarPark {
   }
 
   getGroundFloor() {
-    return this.carPark[1];
+    return this.carPark[this.carPark.length - 1];
   }
 
   getCarParkLevels() {
