@@ -1,7 +1,7 @@
 const car = 2;
 const stair = 1;
 const emptySpace = 0;
-type Cell = typeof car | typeof stair | typeof emptySpace;
+export type Cell = typeof car | typeof stair | typeof emptySpace;
 
 export class CarPark {
   private carPark: Cell[][];
