@@ -41,4 +41,13 @@ describe("We need to escape the car park", () => {
     const expectedRoute = ["L2", "D1", "R1", "D1", "R1"];
     expect(escapeCarpark(carPark)).toEqual(expectedRoute);
   });
+  it("Now our car park has three floors of which the stair cases are on the same position", () => {
+    const carPark = new CarPark([
+      [0, 1, 0, 2],
+      [0, 1, 0, 0],
+      [0, 0, 0, 0],
+    ]);
+    const expectedRoute = ["L2", "D2", "R2"];
+    expect(escapeCarpark(carPark)).toEqual(expectedRoute);
+  });
 });
