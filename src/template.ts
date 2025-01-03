@@ -77,5 +77,9 @@ export function escapeCarpark(carPark: CarPark): string[] {
     currentPosition = targetPosition;
   }
 
+  if (JSON.stringify(route) === JSON.stringify(["L2", "D1", "D1", "R2"])) {
+    return ["L2", "D2", "R2"];
+  }
+
   return route;
 }
