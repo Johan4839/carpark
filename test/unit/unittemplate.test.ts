@@ -72,4 +72,9 @@ describe("Our route can now contain multiple operations to go down a stair. But 
     const expectedRoute = ["D3"];
     expect(groupGoingDownStairCases(route)).toEqual(expectedRoute);
   });
+  it("However, the D1 statement can be part of other statements which it need to leave untouched", () => {
+    const route = ["R1", "D1", "R1"];
+    const expectedRoute = ["R1", "D1", "R1"];
+    expect(groupGoingDownStairCases(route)).toEqual(expectedRoute);
+  });
 });
