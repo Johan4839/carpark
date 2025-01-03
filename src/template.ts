@@ -83,3 +83,7 @@ export function escapeCarpark(carPark: CarPark): string[] {
 
   return route;
 }
+
+export function groupGoingDownStairCases(route: string[]): string[] {
+  return route;
+}

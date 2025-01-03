@@ -1,4 +1,8 @@
-import { CarPark, escapeCarpark } from "../../src/template";
+import {
+  CarPark,
+  escapeCarpark,
+  groupGoingDownStairCases,
+} from "../../src/template";
 
 describe("We need to escape the car park", () => {
   it("The simplest would be a small car park where we are parked next to the exit", () => {
@@ -49,5 +53,18 @@ describe("We need to escape the car park", () => {
     ]);
     const expectedRoute = ["L2", "D2", "R2"];
     expect(escapeCarpark(carPark)).toEqual(expectedRoute);
+  });
+});
+
+describe("Our route can now contain multiple operations to go down a stair. But when these occur directly after each other we want to combine them into one Down statement", () => {
+  it("So a string which contains D1 only once will keep it", () => {
+    const route = ["D1"];
+    const expectedRoute = ["D1"];
+    expect(groupGoingDownStairCases(route)).toEqual(expectedRoute);
+  });
+  it("When we have two D1 statements after each other we want to combine them into one D2 statement", () => {
+    const route = ["D1", "D1"];
+    const expectedRoute = ["D2"];
+    expect(groupGoingDownStairCases(route)).toEqual(expectedRoute);
   });
 });
