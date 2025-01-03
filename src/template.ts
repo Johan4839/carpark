@@ -10,10 +10,6 @@ export class CarPark {
     this.carPark = carPark;
   }
 
-  getCarPark() {
-    return this.carPark;
-  }
-
   getTopFloor() {
     return this.carPark[0];
   }
@@ -42,6 +38,16 @@ function calculateStepsRight(
     route.push(`R${stepsRight}`);
   }
 }
+
+function calculateStepsLeft(
+  positionToGoTo: number,
+  currentPosition: number,
+  route: string[]
+) {
+  const stepsLeft = currentPosition - positionToGoTo;
+
+  route.push(`L${stepsLeft}`);
+}
 export function escapeCarpark(carPark: CarPark): string[] {
   const route: string[] = [];
   const groundFloorExitPosition = carPark.getCarParkWidth();
@@ -59,7 +65,7 @@ export function escapeCarpark(carPark: CarPark): string[] {
       calculateStepsRight(stairCasePosition, currentPosition, route);
     }
     if (currentPosition > stairCasePosition) {
-      route.push(`L${currentPosition - stairCasePosition}`);
+      calculateStepsLeft(stairCasePosition, currentPosition, route);
     }
 
     route.push("D1");
