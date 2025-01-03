@@ -55,7 +55,12 @@ export function escapeCarpark(carPark: CarPark): string[] {
     const topFloor = carPark.getTopFloor();
     const currentPosition = topFloor.indexOf(car);
     const stairCasePosition = topFloor.indexOf(stair);
-    calculateStepsRight(stairCasePosition, currentPosition, route);
+    if (currentPosition < stairCasePosition) {
+      calculateStepsRight(stairCasePosition, currentPosition, route);
+    }
+    if (currentPosition > stairCasePosition) {
+      route.push(`L${currentPosition - stairCasePosition}`);
+    }
 
     route.push("D1");
 
