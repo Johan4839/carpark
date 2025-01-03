@@ -85,6 +85,18 @@ export function escapeCarpark(carPark: CarPark): string[] {
 }
 
 export function groupGoingDownStairCases(route: string[]): string[] {
-  const amountOfDowns = route.filter((step) => step === "D1").length;
-  return [`D${amountOfDowns}`];
+  return route.reduce((result: string[], step: string) => {
+    if (step === "D1") {
+      const lastStep = result[result.length - 1];
+      if (lastStep && lastStep.startsWith("D")) {
+        const count = parseInt(lastStep.slice(1), 10) + 1;
+        result[result.length - 1] = `D${count}`;
+      } else {
+        result.push("D1");
+      }
+    } else {
+      result.push(step);
+    }
+    return result;
+  }, []);
 }
