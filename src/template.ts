@@ -52,6 +52,23 @@ function calculateStepsLeft(
 
   route.push(`L${stepsLeft}`);
 }
+
+export function groupGoingDownStairCases(route: string[]): string[] {
+  return route.reduce((result: string[], step: string) => {
+    if (step === "D1") {
+      const lastStep = result[result.length - 1];
+      if (lastStep && lastStep.startsWith("D")) {
+        const count = parseInt(lastStep.slice(1), 10) + 1;
+        result[result.length - 1] = `D${count}`;
+      } else {
+        result.push("D1");
+      }
+    } else {
+      result.push(step);
+    }
+    return result;
+  }, []);
+}
 export function escapeCarpark(carPark: CarPark): string[] {
   const route: string[] = [];
   const carParkLevels = carPark.getCarParkLevels();
@@ -77,26 +94,5 @@ export function escapeCarpark(carPark: CarPark): string[] {
     currentPosition = targetPosition;
   }
 
-  if (JSON.stringify(route) === JSON.stringify(["L2", "D1", "D1", "R2"])) {
-    return ["L2", "D2", "R2"];
-  }
-
-  return route;
-}
-
-export function groupGoingDownStairCases(route: string[]): string[] {
-  return route.reduce((result: string[], step: string) => {
-    if (step === "D1") {
-      const lastStep = result[result.length - 1];
-      if (lastStep && lastStep.startsWith("D")) {
-        const count = parseInt(lastStep.slice(1), 10) + 1;
-        result[result.length - 1] = `D${count}`;
-      } else {
-        result.push("D1");
-      }
-    } else {
-      result.push(step);
-    }
-    return result;
-  }, []);
+  return groupGoingDownStairCases(route);
 }
