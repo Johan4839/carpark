@@ -56,55 +56,23 @@ export function escapeCarpark(carPark: CarPark): string[] {
   const route: string[] = [];
   const groundFloorExitPosition = carPark.getCarParkWidth();
   const carParkLevels = carPark.getCarParkLevels();
-  if (carParkLevels === 1) {
-    const currentPosition = carPark.getGroundFloor().indexOf(car);
-    calculateStepsRight(groundFloorExitPosition, currentPosition, route);
-  }
+  let currentPosition = carPark.getTopFloor().indexOf(car);
 
-  if (carParkLevels === 2) {
-    const topFloor = carPark.getTopFloor();
-    const currentPosition = topFloor.indexOf(car);
-    const stairCasePosition = topFloor.indexOf(stair);
+  for (let level = 0; level < carParkLevels - 1; level += 1) {
+    const floor = carPark.getFloor(level);
+    const stairCasePosition = floor.indexOf(stair);
+
     if (currentPosition < stairCasePosition) {
       calculateStepsRight(stairCasePosition, currentPosition, route);
-    }
-    if (currentPosition > stairCasePosition) {
-      calculateStepsLeft(stairCasePosition, currentPosition, route);
-    }
-
-    route.push("D1");
-
-    calculateStepsRight(groundFloorExitPosition, stairCasePosition, route);
-  }
-
-  if (carParkLevels === 3) {
-    const topFloor = carPark.getTopFloor();
-    const middleFloor = carPark.getFloor(1);
-    let currentPosition = topFloor.indexOf(car);
-    const stairCasePosition = topFloor.indexOf(stair);
-    const stairCasePositionMiddleFloor = middleFloor.indexOf(stair);
-    if (currentPosition < stairCasePosition) {
-      calculateStepsRight(stairCasePosition, currentPosition, route);
-    }
-    if (currentPosition > stairCasePosition) {
+    } else if (currentPosition > stairCasePosition) {
       calculateStepsLeft(stairCasePosition, currentPosition, route);
     }
 
     route.push("D1");
     currentPosition = stairCasePosition;
-
-    if (currentPosition < stairCasePositionMiddleFloor) {
-      calculateStepsRight(stairCasePositionMiddleFloor, currentPosition, route);
-    }
-    if (currentPosition > stairCasePositionMiddleFloor) {
-      calculateStepsLeft(stairCasePositionMiddleFloor, currentPosition, route);
-    }
-
-    route.push("D1");
-    currentPosition = stairCasePositionMiddleFloor;
-
-    calculateStepsRight(groundFloorExitPosition, currentPosition, route);
   }
+
+  calculateStepsRight(groundFloorExitPosition, currentPosition, route);
 
   return route;
 }
