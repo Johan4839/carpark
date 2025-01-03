@@ -85,8 +85,6 @@ export function escapeCarpark(carPark: CarPark): string[] {
 }
 
 export function groupGoingDownStairCases(route: string[]): string[] {
-  if (route.length === 1) {
-    return route;
-  }
-  return ["D2"];
+  const amountOfDowns = route.filter((step) => step === "D1").length;
+  return [`D${amountOfDowns}`];
 }
