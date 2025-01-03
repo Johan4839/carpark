@@ -54,25 +54,28 @@ function calculateStepsLeft(
 }
 export function escapeCarpark(carPark: CarPark): string[] {
   const route: string[] = [];
-  const groundFloorExitPosition = carPark.getCarParkWidth();
   const carParkLevels = carPark.getCarParkLevels();
   let currentPosition = carPark.getTopFloor().indexOf(car);
 
-  for (let level = 0; level < carParkLevels - 1; level += 1) {
+  for (let level = 0; level < carParkLevels; level += 1) {
     const floor = carPark.getFloor(level);
-    const stairCasePosition = floor.indexOf(stair);
+    const targetPosition =
+      level === carParkLevels - 1
+        ? carPark.getCarParkWidth()
+        : floor.indexOf(stair);
 
-    if (currentPosition < stairCasePosition) {
-      calculateStepsRight(stairCasePosition, currentPosition, route);
-    } else if (currentPosition > stairCasePosition) {
-      calculateStepsLeft(stairCasePosition, currentPosition, route);
+    if (currentPosition < targetPosition) {
+      calculateStepsRight(targetPosition, currentPosition, route);
+    } else if (currentPosition > targetPosition) {
+      calculateStepsLeft(targetPosition, currentPosition, route);
     }
 
-    route.push("D1");
-    currentPosition = stairCasePosition;
-  }
+    if (level < carParkLevels - 1) {
+      route.push("D1");
+    }
 
-  calculateStepsRight(groundFloorExitPosition, currentPosition, route);
+    currentPosition = targetPosition;
+  }
 
   return route;
 }
