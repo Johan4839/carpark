@@ -54,7 +54,8 @@ function calculateStepsLeft(
 }
 
 export function groupGoingDownStairCases(route: string[]): string[] {
-  return route.reduce((result: string[], step: string) => {
+  return route.reduce((acc: string[], step: string) => {
+    const result = [...acc];
     if (step === "D1") {
       const lastStep = result[result.length - 1];
       if (lastStep && lastStep.startsWith("D")) {
