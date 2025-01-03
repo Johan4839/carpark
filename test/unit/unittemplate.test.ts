@@ -91,6 +91,12 @@ describe("Our route can now contain multiple operations to go down a stair. But 
       route: ["R1", "D1", "R1"],
       expectedRoute: ["R1", "D1", "R1"],
     },
+    {
+      description:
+        "Now a more complex example which is a combination of the above",
+      route: ["R1", "D1", "D1", "R1", "D1", "D1", "D1", "R1"],
+      expectedRoute: ["R1", "D2", "R1", "D3", "R1"],
+    },
   ];
 
   testCases.forEach(({ description, route, expectedRoute }) => {
